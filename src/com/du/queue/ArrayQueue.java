@@ -1,5 +1,9 @@
 package com.du.queue;
 
+import javax.management.RuntimeMBeanException;
+import java.util.Arrays;
+import java.util.Collections;
+
 /**
  * @author djg
  * @date 2019/7/8 12:59
@@ -57,6 +61,80 @@ public class ArrayQueue<T> {
     }
 
 
+    /**
+     * 队列的添加
+     * @param t
+     * @return
+     */
+    public boolean add(T t){
+        if (isFull()) {
+            throw new RuntimeException("队列已满");
+        }else {
+            data[rear++] = t;
+            return true;
+        }
+
+    }
+
+    /**
+     * 查看队列中的头元素
+     * @return
+     */
+    public T peek() {
+        if (isEmpty()) {
+            throw new RuntimeException("队列为空");
+        } else {
+            return (T) data[front];
+        }
+    }
+
+    /**
+     * 出队
+     * @return
+     */
+    public T poll() {
+        if (isEmpty()) {
+            throw new RuntimeException("空队列异常");
+        } else {
+            T result = (T) data[front];
+            data[front++] = null;
+            return result;
+        }
+    }
+
+    /**
+     * 获取队列的长度
+     * @return
+     */
+    public int length(){
+        return front - rear;
+    }
+
+    public Object[] list(){
+        if (isEmpty()) {
+            throw new RuntimeException("队列为空");
+        } else {
+            return data;
+        }
+
+    }
+
+    public static void main(String[] args) {
+        ArrayQueue<String> queue = new ArrayQueue<>(4);
+        queue.add("1");
+        queue.add("2");
+        queue.add("3");
+        queue.add("4");
+
+        queue.poll();
+
+        System.out.println(queue.peek());
+
+
+        Object[] list = queue.list();
+        System.out.println(Arrays.toString(list));
+
+    }
 
 
 }
