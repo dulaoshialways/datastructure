@@ -40,7 +40,7 @@ public class ArrayQueue<T> {
             front = rear = 0;
             data = new Object[initSize];
         } else {
-            throw new RuntimeException("队列长度不能小于10");
+            throw new RuntimeException("队列长度不能小于0");
         }
     }
 
